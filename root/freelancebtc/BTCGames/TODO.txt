@@ -1,0 +1,7 @@
+- Téléchargement sites ( Seif )
+- Choix template + adaptation ( Seif )
+- Dice Téléchargement + adaptation ( Oussama )
+- Coinflip Integration ( Seif )
+- Roulette Integration ( Oussama )
+- Intégration Api paiement ( Seif )
+- Page statistique 

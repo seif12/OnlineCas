@@ -1,0 +1,136 @@
+h1, h2, h3, h4, h5, h6, li {
+	margin:0;
+}
+body {
+	
+background: rgba(31,76,8,1);
+background:url("images/stripe.png");
+background-repeat:repeat-x-y;
+/*!background: -moz-linear-gradient(top, rgba(31,76,8,1) 0%, rgba(14,41,10,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(31,76,8,1)), color-stop(100%, rgba(14,41,10,1)));
+background: -webkit-linear-gradient(top, rgba(31,76,8,1) 0%, rgba(14,41,10,1) 100%);
+background: -o-linear-gradient(top, rgba(31,76,8,1) 0%, rgba(14,41,10,1) 100%);
+background: -ms-linear-gradient(top, rgba(31,76,8,1) 0%, rgba(14,41,10,1) 100%);
+background: linear-gradient(to bottom, rgba(31,76,8,1) 0%, rgba(14,41,10,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1f4c08', endColorstr='#0e290a', GradientType=0 );*/
+
+
+	margin-left: 0px;
+	margin-top: 1px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	color:#FFFFFF;
+	font-family: 12px/18px Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height:17px;
+}
+a {
+	color: #ffffff;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+.slogan {
+	font-size: 14px;
+	font-weight: normal;
+	color: #FED547;
+}
+.title {
+	font-size: 33px;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+.copyright {
+	border: 0px;
+	height: 1px;
+	width: 1px;
+}
+a.navbar {
+	font-size:11px;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a.navbar:hover {
+	color: #FFCC00;
+	text-decoration: none;
+}
+.head-1 {
+	font-size: 12px;
+	font-weight: normal;
+	color: #FFE889;
+}
+.head-2 {
+	font-size: 22px;
+	color: #FFFFFF;
+}
+.head-3 {
+	font-size: 15px;
+	color: #FFCC00;
+}
+.head-4 {
+	font-size: 14px;
+	color: #FFFFFF;
+}
+.head-5 {
+	font-size: 19px;
+	color: #FFFFFF;
+}
+
+a.navbar2 {
+	font-size: 11px;
+	text-decoration: none;
+	color: #FFCC00;
+}
+a.navbar2:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a.navbar3 {
+	font-size: 11px;
+	text-decoration: underline;
+	color: #F8952B;
+}
+a.navbar3:hover {
+	text-decoration: none;
+}
+a.navbar4 {
+	font-size: 11px;
+	text-decoration: none;
+	color: #FFCC00;
+}
+a.navbar4:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a.btn {
+    color: #f6f6f6;
+    display: inline-block;
+    padding: 2px 16px 3px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font: 13px/30px 'Racing Sans One', cursive;
+    background-color: #2e2e2e;
+    margin-left: 10px;
+}
+a.btn +a.btn  {
+    margin-left: 8px;
+}
+
+a.btn:hover {
+    background-color: #66b203;
+}
+.style3 {
+	color: #999999;
+	font-weight: normal;
+}
+input[type="text"] {
+ 
+  margin: 5;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}

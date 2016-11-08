@@ -1,0 +1,11 @@
+HTTrack3.48-22+htsswf+htsjava launched on Fri, 30 Sep 2016 20:09:24 at https://www.crypto-games.net/roulette/bitcoin +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://www.crypto-games.net/roulette/bitcoin -O1 "C:\My Web Sites\test" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+
+HTTrack Website Copier/3.48-22 mirror complete in 20 seconds : 71 links scanned, 70 files written (1155259 bytes overall) [563006 bytes received at 28150 bytes/sec], 892936 bytes transferred using HTTP compression in 22 files, ratio 28%, 17.7 requests per connection
+(No errors, 0 warnings, 0 messages)

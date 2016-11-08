@@ -1,0 +1,16 @@
+{
+    "remotePath": "html/",
+    "host": "95.153.32.57",
+    "username": "user1",
+    "password": "Topfreelancer",
+    "port": 21,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git"
+    ]
+}

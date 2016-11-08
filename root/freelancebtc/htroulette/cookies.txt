@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.crypto-games.net	TRUE	/	FALSE	1999999999	__cfduid	db6480a2462a4f8f447b61253109c60ef1475262562
+.cloudflare.com	TRUE	/	FALSE	1999999999	__cfduid	d48f32ad1e58c266b28c52b06ae7b6a771475262563
+www.crypto-games.net	TRUE	/	FALSE	1999999999	LongId	FNRPtTSqkqNf83VDr4NO
+

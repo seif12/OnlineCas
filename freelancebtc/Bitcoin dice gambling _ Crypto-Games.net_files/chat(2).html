@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://www.crypto-games.net/chat/chat.aspx?channel=4 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Crypto-games.net Chat</title>
+<script type="text/javascript" async="" src="./ga.js.download"></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:1475819793,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"e2d8b0bc74be8a05ce7f58d3cdc33bf5",petok:"70f06dee66d5e0b0ef57103f29268b7192112755-1476047976-1800",zone:"crypto-games.net",rocket:"a",apps:{"ga_key":{"ua":"UA-53690490-1","ga_bs":"2"},"abetterbrowser":{"ie":"8","opera":"26","chrome":"31","safari":"5.0","firefox":"33"}}}];document.write('<script type="text/javascript" src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=0489c402f5/cloudflare.min.js"><'+'\/script>');}}catch(e){};
+//]]>
+</script><script type="text/javascript" src="./cloudflare.min.js.download"></script><style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style><script data-module="cloudflare/rocket" id="cfjs_block_146769b2c1f" onload="CloudFlare.__cfjs_block_146769b2c1f_load()" onerror="CloudFlare.__cfjs_block_146769b2c1f_error()" onreadystatechange="CloudFlare.__cfjs_block_146769b2c1f_readystatechange()" type="text/javascript" src="./rocket.js.download"></script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+          var JoinChannel = "4";
+    </script>
+<link href="./emojify.css" rel="stylesheet">
+<link href="./chat(1).css" rel="stylesheet">
+<link href="./bootstrap(1).css" rel="stylesheet">
+<link rel="icon" href="https://www.crypto-games.net/chat/favicon.png" type="image/png">
+<script data-rocketsrc="Scripts/jquery-2.1.0.min.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script data-rocketsrc="Scripts/bootstrap/js/bootstrap.min.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script data-rocketsrc="Scripts/jquery.signalR-2.2.0.min.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script data-rocketsrc="signalr/hubs" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script data-rocketsrc="Scripts/emojify/js/emojify.min.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+        var Bottom = true;
+
+        getTime = function (datetime) {
+            var h = datetime.getHours();
+            var m = datetime.getMinutes();
+            var s = datetime.getSeconds();
+            if (h < 10) h = '0' + h;
+            if (m < 10) m = '0' + m;
+            if (s < 10) s = '0' + s;
+            var result = h + ":" + m;
+
+            return result;
+        }
+        var messages = 0;
+
+        function scrollDown() {
+            var div = document.getElementById("discussion");
+            div.scrollTop = div.scrollHeight;
+        };
+
+        $(document).ready(function () {
+        
+            $("#chat_text").keydown(function (evt) {
+                var key = evt.which;
+                if (key == "13") {
+                    evt.preventDefault();
+                    var text = $(this).val();
+                    sendMessage(text);
+                }
+            });
+
+            $(this).on('click', '.dropdown-menu li a', function (event) {
+
+                var type = $(this).data("type");
+                var nick = $(this).data("nickname");
+                nick = nick.replace("[MOD]", "");
+                nick = nick.replace("[ADM]", "");
+
+                if (type == "1") {
+                    $('#chat_text').val('!tip ' + nick + ' ').focus();
+                }
+                else if (type == "2") {
+                    parent.ShowUser(nick);
+                }
+                else if (type == "3") {
+                    var val = $('#chat_text').val();
+                    $('#chat_text').val(val + nick+" ").focus();
+                }
+            });
+
+            $(this).on('click', 'li a', function (event) {
+                event.preventDefault();
+                var id = $(this).data("id");
+                var type = $(this).data("type");
+                if (type == "4") {
+                    parent.ShowBet(id,1);
+                }
+                else if (type == "5") {
+                    parent.ShowBet(id, 2);
+                }
+                else if (type == "7") {
+                    parent.ShowBet(id, 3);
+                }
+                else if (type == "10") {
+                    parent.ShowBet(id, 4);
+                }
+                else if (type == "6") {
+                    parent.ShowUser(id);
+                }
+                else if (type == "8") {
+                    parent.ShowFaq();
+                }
+                else if (type == "9") {
+                    parent.ShowRules();
+                }
+            });
+
+            var chat = $.connection.chatHub;
+
+            chat.client.sendMessage = function (time, name, rank, message) {
+                if (JoinChannel == 2) {
+                    rank = "";
+                }
+
+                messages = messages + 1;
+                if (message.substring(0,9) == "Dice bet:") {
+                    var id = message.split(' ')[2];
+                    id = id.replace(/[^A-Za-z0-9]/g, "");
+                    var encodedMsg = 'Dice bet: <a href="/bet/dice/'+id+'" class="a_link" data-type="4" data-id="' + id + '">' + id + ' <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 9) == "Slot bet:") {
+                    var id = message.split(' ')[2];
+                    id = id.replace(/[^a-zA-Z0-9]/g, "");
+                    var encodedMsg = 'Slot bet: <a href="/bet/slot/'+id+'" class="a_link" data-type="5" data-id="' + id + '">' + id + ' <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 14) == "Blackjack bet:") {
+                    var id = message.split(' ')[2];
+                    id = id.replace(/[^a-zA-Z0-9]/g, "");
+                    var encodedMsg = 'Blackjack bet: <a href="/bet/blackjack/' + id + '" class="a_link" data-type="7" data-id="' + id + '">' + id + ' <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 13) == "Roulette bet:") {
+                    var id = message.split(' ')[2];
+                    id = id.replace(/[^a-zA-Z0-9]/g, "");
+                    var encodedMsg = 'Roulette bet: <a href="/bet/roulette/' + id + '" class="a_link" data-type="10" data-id="' + id + '">' + id + ' <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 5) == "User:") {
+                    var id = message.split(' ')[1];
+                    id = id.replace(/[^a-zA-Z0-9]/g, "");
+                    var encodedMsg = 'User: <a href="/player/'+id+'" class="a_link" data-type="6" data-id="' + id + '">' + id + ' <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 51) == "The answer to your question can be found in our FAQ") {
+                    var encodedMsg = 'The answer to your question can be found in our <a href="/faq" class="a_link" data-type="8">FAQ <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else if (message.substring(0, 26) == "Please read our chat rules") {
+                    var encodedMsg = 'Please read our <a href="/chatrules" class="a_link" data-type="9">chat rules <span class="glyphicon glyphicon-search" aria-hidden="true">';
+                }
+                else {
+                    var encodedMsg = $('<div />').text(message).html();
+                }
+
+                var time = getTime(new Date(time));
+                time = "[" + time + "]";
+                rank = rank.trim();
+                if (rank == "ADM") {
+                    var encodedName = "<[<span style='color:orange'>" + rank + "</span>]" + name + ">";
+                }
+                else if (rank == "MOD") {
+                    var encodedName = "<[<span style='color:blue'>" + rank + "</span>]" + name + ">";
+                }
+                else if (rank == "BOT") {
+                    var encodedName = "<[<span style='color:red'>" + rank + "</span>]" + name + ">";
+                }
+                else if (rank != "") {
+                    var encodedName = "<[<span>" + rank + "</span>]" + name + ">";
+                }
+                else {
+                    var encodedName = $('<div />').text("<" + name + ">").html();
+                }
+
+                encodedMsg = emojify.replace(encodedMsg);
+
+                var text = '<li class="dropdown dropup">' +
+                          ' <span>' + time + ' </span><a href="#" class="dropdown-toggle nicklink" data-toggle="dropdown">' + encodedName + '</a> ' +
+                          '      <ul class="dropdown-menu thin" role="menu"> ' +
+                          '         <li><a href="#" class="a_link" data-type="1" data-nickname="' + name + '"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li> ' +
+                          '         <li><a href="#" class="a_link" data-type="2" data-nickname="' + name + '"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li> ' +
+                          '         <li><a href="#" class="a_link" data-type="3" data-nickname="' + name + '"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li> ' +
+                          '      </ul> ' +
+                          '   <span id="message' + messages + '"> ' + encodedMsg + ' </span>' +
+                          '</li>';
+
+                $('#discussion').append(text);
+                $('#discussion li').first().outerHeight(true);
+                //$('#message' + messages).emoticonize();
+
+                if (Bottom == true) {
+                    scrollDown();
+                }
+
+                try {
+                    parent.IncreaseMessageCount(JoinChannel);
+                }
+                catch (e) {
+
+                }
+            };
+
+            chat.client.sendError = function (time, message) {
+                var time = getTime(new Date(time));
+                var encodedMsg = $('<div />').text("[" + time + "] " + message).html();
+                $('#discussion').append('<li class="red_font">' + encodedMsg + '</li>');
+                $('#discussion li').first().outerHeight(true);
+
+                if (Bottom == true) {
+                    scrollDown();
+                }
+            };
+
+            chat.client.sendSuccess = function (time, message) {
+                var time = getTime(new Date(time));
+                var encodedMsg = $('<div />').text("[" + time + "] " + message).html();
+                $('#discussion').append('<li class="green_font">' + encodedMsg + '</li>');
+
+                if (Bottom == true) {
+                    scrollDown();
+                }
+
+                try {
+                    parent.IncreaseMessageCount(JoinChannel);
+                }
+                catch(e)
+                {
+
+                }
+            };
+
+            chat.client.sendOnlineUsers = function (users) {
+                try {
+                    parent.UsersOnline(users);
+                    parent.Connected(true);
+                }
+                catch (e) {
+
+                }
+            }
+
+            $.connection.hub.disconnected(function () {
+                setTimeout(function () {
+                    $.connection.hub.start();
+                }, 5000);
+                parent.Connected(false);
+            });
+
+            $('#message').focus();
+
+            $.connection.hub.qs = { "channel": JoinChannel };
+
+            $.connection.hub.start().done(function () {
+                var TextBox = $("#chat_text");
+                $("#chat_text_send").click(function () {
+                    var text = TextBox.val();
+                    sendMessage(text);
+                });
+
+                sendMessage = function (text) {
+                    if (text.indexOf("!open") == 0) {
+                        var words = text.split(" ");
+                        id = words[1];
+                        parent.ShowUser(id);
+                    }
+                    else {
+                        chat.server.send(text);
+                    }
+                    $("#chat_text").val("").focus();
+                };
+                parent.Connected(true);
+            });
+
+            $("#discussion").scroll(function () {
+                if (($(this)[0].scrollHeight - $(this).scrollTop()) * 0.95 <= $(this).outerHeight()) {
+                    Bottom = true;
+                }
+                else {
+                    Bottom = false;
+                }
+            });
+        });
+
+    </script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-53690490-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+</head>
+<body>
+<div>
+<div id="chat_history">
+<ul id="discussion">
+<li class="green_font">[22:19] * This is an international chat channel. Messages here aren't counted. Read rules on FAQ and Chat rules page. Use !help command for more info.</li><li class="dropdown dropup"> <span>[21:30] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message1"> I just won 0.064 btc </span></li><li class="dropdown dropup"> <span>[21:30] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message2"> sup plucky ? </span></li><li class="dropdown dropup"> <span>[21:31] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message3"> haha gratz </span></li><li class="dropdown dropup"> <span>[21:31] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message4"> http://prntscr.com/crgmva </span></li><li class="dropdown dropup"> <span>[21:31] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message5"> your just killing it </span></li><li class="dropdown dropup"> <span>[21:31] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message6"> also i went to 160 doge and then come back to 1400 doge ^^ </span></li><li class="dropdown dropup"> <span>[21:32] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message7"> I started with 2k satoshis with double on loss at 2.9x <img align="absmiddle" alt=":grinning:" class="emoji" src="./grinning.png" title=":grinning:"> </span></li><li class="dropdown dropup"> <span>[21:32] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message8"> Nice </span></li><li class="dropdown dropup"> <span>[21:32] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message9"> but this time i bust </span></li><li class="dropdown dropup"> <span>[21:32] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message10"> alright nvm </span></li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message11"> all gone? </span></li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message12"> yea </span></li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message13"> Damn.. </span></li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message14"> i've see lots of reds <img align="absmiddle" alt=":frowning:" class="emoji" src="./frowning.png" title=":frowning:"> </span></li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message15"> nvm guys </span></li><li class="green_font">[21:33] * roadcrap sent 500.00000000 DOGE       to clovis357</li><li class="dropdown dropup"> <span>[21:33] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message16"> it was money from nothing </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message17"> road cmon its yours </span></li><li class="green_font">[21:34] * clovis357 sent 500.00000000 DOGE       to roadcrap</li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message18"> you gave me 1 and aleric 1.. </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message19"> lol - lets play toss the doge around </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Plucky&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Plucky"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Plucky"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Plucky"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message20"> I would tip if i had.. </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message21"> dont care </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message22"> have fun guys <img align="absmiddle" alt=":smile:" class="emoji" src="./smile.png" title=":smile:"> </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message23"> oh i will </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message24"> thanks for the entertainment </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message25"> np np <img align="absmiddle" alt=":frowning:" class="emoji" src="./frowning.png" title=":frowning:"> </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message26"> <img align="absmiddle" alt=":smile:" class="emoji" src="./smile.png" title=":smile:"> </span></li><li class="dropdown dropup"> <span>[21:34] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message27"> omg wrong smile </span></li><li class="dropdown dropup"> <span>[21:35] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;clovis357&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="clovis357"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="clovis357"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="clovis357"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message28"> thankx you guys </span></li><li class="green_font">[22:06] * roadcrap rolled 51</li><li class="dropdown dropup"> <span>[22:07] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;roadcrap&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="roadcrap"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="roadcrap"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="roadcrap"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message29"> english chat isnt loading... </span></li><li class="green_font">[03:40] * roadcrap rolled 27</li><li class="dropdown dropup"> <span>[04:15] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;GimmyHead&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="GimmyHead"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="GimmyHead"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="GimmyHead"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message30"> ( . Y . ) </span></li><li class="dropdown dropup"> <span>[04:22] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Aleric264&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Aleric264"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Aleric264"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Aleric264"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message31"> boobies </span></li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a head!</li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a tail!</li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a tail!</li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a head!</li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a head!</li><li class="green_font">[04:22] * Aleric264 flips a coin and gets a tail!</li><li class="dropdown dropup"> <span>[08:46] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Marcellin&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Marcellin"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Marcellin"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Marcellin"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message32"> Hey Guys↖(^•^)↗ </span></li><li class="green_font">[09:39] * niceboy99 rolled 7</li><li class="green_font">[09:39] * niceboy99 rolled 29</li><li class="green_font">[13:25] * s0lidus rolled 12</li><li class="dropdown dropup"> <span>[13:25] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;s0lidus&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="s0lidus"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="s0lidus"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="s0lidus"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message33"> damn on e more try </span></li><li class="green_font">[13:25] * s0lidus rolled 87</li><li class="green_font">[13:25] * s0lidus flips a coin and gets a head!</li><li class="green_font">[15:40] * roadcrap rolled 96</li><li class="dropdown dropup"> <span>[17:55] </span><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="dropdown-toggle nicklink" data-toggle="dropdown">&lt;Prince986&gt;</a>       <ul class="dropdown-menu thin" role="menu">          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="1" data-nickname="Prince986"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> Tip</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="2" data-nickname="Prince986"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Show</a></li>          <li><a href="https://www.crypto-games.net/chat/chat.aspx?channel=4#" class="a_link" data-type="3" data-nickname="Prince986"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Paste</a></li>       </ul>    <span id="message34"> добрый вечер всем! </span></li></ul>
+</div>
+<div id="chat_send">
+<textarea id="chat_text" placeholder="Type and press [enter]..." maxlength="200"></textarea>
+<button id="chat_text_send">Send</button>
+</div>
+</div>
+
+</body></html>
